@@ -6,14 +6,16 @@
 	--aiv-consent-accent: #2457d6;
 	--aiv-consent-button-background: #2457d6;
 	--aiv-consent-button-color: #fff;
+	--aiv-consent-font-family: inherit;
+	--aiv-consent-font-size: 16px;
 	--aiv-consent-radius: 0.5rem;
 	--aiv-consent-max-width: 72rem;
 	--aiv-consent-shadow: 0 0.75rem 2.5rem rgb(15 23 42 / 18%);
 
 	box-sizing: border-box;
 	color: var(--aiv-consent-color);
-	font-family: inherit;
-	font-size: 1rem;
+	font-family: var(--aiv-consent-font-family);
+	font-size: var(--aiv-consent-font-size);
 	line-height: 1.5;
 
 	*,
@@ -332,4 +334,3 @@
 		transition-duration: 0.01ms !important;
 	}
 }
-

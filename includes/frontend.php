@@ -54,6 +54,7 @@ function aiv_consent_enqueue_frontend_assets() {
 	);
 
 	wp_enqueue_style( 'aiv-consent', AIV_CONSENT_URL . 'assets/css/consent.css', array(), AIV_CONSENT_VERSION );
+	wp_add_inline_style( 'aiv-consent', aiv_consent_get_appearance_css() );
 	wp_enqueue_script(
 		'aiv-consent',
 		AIV_CONSENT_URL . 'assets/js/consent.js',

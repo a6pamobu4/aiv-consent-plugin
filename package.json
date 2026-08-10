@@ -1,6 +1,6 @@
 {
   "name": "aiv-consent",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Stylesheet tooling for the AIV Consent WordPress plugin.",
   "scripts": {
@@ -11,4 +11,3 @@
     "sass": "^1.77.0"
   }
 }
-

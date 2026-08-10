@@ -37,6 +37,7 @@ Go to **Settings > AIV Consent**. The WordPress Settings API registers and sanit
 - cookie and privacy policy URLs;
 - banner title, description, action labels, and cookie-policy link label;
 - modal title, save label, and default category descriptions;
+- window colors, system font, text size, corner radius, maximum width, and shadow;
 - re-prompt after version changes and reload after revocation.
 
 When no custom privacy URL exists, the configured WordPress Privacy Policy URL is used. An empty cookie policy URL produces no broken link.
@@ -115,7 +116,9 @@ When an allowed optional category is revoked, the plugin saves the new state, at
 
 ## Theme customization
 
-Override these custom properties near the plugin root from theme CSS:
+The **Appearance** settings provide safe controls for the banner and preferences panel. They use native color inputs, bounded numeric values, and a whitelist of local system fonts, so saving a design never generates an external font request or stores arbitrary CSS.
+
+The plugin emits the saved values as CSS custom properties attached to its enqueued stylesheet. Themes can still override these properties near the plugin root:
 
 ```css
 .aiv-consent-root {
@@ -125,6 +128,8 @@ Override these custom properties near the plugin root from theme CSS:
   --aiv-consent-accent: #2457d6;
   --aiv-consent-button-background: #2457d6;
   --aiv-consent-button-color: #fff;
+	--aiv-consent-font-family: inherit;
+	--aiv-consent-font-size: 16px;
   --aiv-consent-radius: 0.5rem;
   --aiv-consent-max-width: 72rem;
 }
