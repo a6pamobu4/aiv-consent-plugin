@@ -1,0 +1,14 @@
+{
+  "name": "aiv-consent",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Stylesheet tooling for the AIV Consent WordPress plugin.",
+  "scripts": {
+    "build": "sass assets/scss:assets/css --style=expanded --no-source-map",
+    "start": "sass --watch assets/scss:assets/css --style=expanded --source-map"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0"
+  }
+}
+

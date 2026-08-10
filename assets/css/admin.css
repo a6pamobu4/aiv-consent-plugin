@@ -1,0 +1,12 @@
+.aiv-consent-admin {
+  max-width: 72rem;
+}
+.aiv-consent-admin > p {
+  max-width: 52rem;
+}
+.aiv-consent-admin .form-table {
+  margin-bottom: 2rem;
+}
+.aiv-consent-admin textarea {
+  max-width: 52rem;
+}
