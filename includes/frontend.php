@@ -132,10 +132,10 @@ function aiv_consent_render_policy_links() {
 	?>
 	<div class="aiv-consent-policy-links">
 		<?php if ( '' !== $privacy_url ) : ?>
-			<a href="<?php echo esc_url( $privacy_url ); ?>"><?php esc_html_e( 'Политика конфиденциальности', 'aiv-consent' ); ?></a>
+			<a href="<?php echo esc_url( $privacy_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Политика конфиденциальности', 'aiv-consent' ); ?><span class="screen-reader-text"> <?php esc_html_e( '(откроется в новой вкладке)', 'aiv-consent' ); ?></span></a>
 		<?php endif; ?>
 		<?php if ( '' !== $cookie_url ) : ?>
-			<a href="<?php echo esc_url( $cookie_url ); ?>"><?php echo esc_html( $options['cookie_policy_label'] ); ?></a>
+			<a href="<?php echo esc_url( $cookie_url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $options['cookie_policy_label'] ); ?><span class="screen-reader-text"> <?php esc_html_e( '(откроется в новой вкладке)', 'aiv-consent' ); ?></span></a>
 		<?php endif; ?>
 	</div>
 	<?php

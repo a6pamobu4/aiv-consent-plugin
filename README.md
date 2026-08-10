@@ -41,6 +41,7 @@ Go to **Settings > AIV Consent**. The WordPress Settings API registers and sanit
 - re-prompt after version changes and reload after revocation.
 
 When no custom privacy URL exists, the configured WordPress Privacy Policy URL is used. An empty cookie policy URL produces no broken link.
+Policy links open in a new browser tab and include safe `noopener noreferrer` relationship attributes.
 
 ## Consent cookie
 

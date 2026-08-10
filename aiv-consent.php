@@ -3,7 +3,7 @@
  * Plugin Name:       AIV Consent
  * Plugin URI:        https://github.com/a6pamobu4/aiv-consent-plugin
  * Description:       Lightweight technical infrastructure for managing consent for optional cookies and scripts.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Requires at least: 7.0
  * Requires PHP:      8.1
  * Author:            AIV
@@ -17,7 +17,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AIV_CONSENT_VERSION', '1.1.0' );
+define( 'AIV_CONSENT_VERSION', '1.1.1' );
 define( 'AIV_CONSENT_FILE', __FILE__ );
 define( 'AIV_CONSENT_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AIV_CONSENT_URL', plugin_dir_url( __FILE__ ) );
