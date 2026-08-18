@@ -8,7 +8,8 @@
 defined( 'ABSPATH' ) || exit;
 
 add_action( 'wp_enqueue_scripts', 'aiv_consent_enqueue_frontend_assets' );
-add_action( 'wp_footer', 'aiv_consent_render_frontend' );
+add_action( 'wp_body_open', 'aiv_consent_render_frontend', 5 );
+add_action( 'wp_footer', 'aiv_consent_render_frontend', 1 );
 add_action( 'init', 'aiv_consent_register_shortcode' );
 
 /**
@@ -147,9 +148,17 @@ function aiv_consent_render_policy_links() {
  * @return void
  */
 function aiv_consent_render_frontend() {
+	static $rendered = false;
+
 	if ( ! aiv_consent_is_enabled() ) {
 		return;
 	}
+
+	if ( $rendered ) {
+		return;
+	}
+
+	$rendered = true;
 
 	$options    = aiv_consent_get_options();
 	$categories = aiv_consent_get_categories();
