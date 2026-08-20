@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
  * @return array<string, mixed>
  */
 function aiv_consent_get_default_options() {
-	return array(
+	$defaults = array(
 		'enabled'                         => true,
 		'consent_version'                 => '1.0',
 		'cookie_lifetime'                 => 180,
@@ -45,6 +45,13 @@ function aiv_consent_get_default_options() {
 		'reprompt_on_version_change'      => true,
 		'reload_after_consent_revocation' => true,
 	);
+
+	/**
+	 * Filters plugin defaults, including integration defaults.
+	 *
+	 * @param array<string, mixed> $defaults Default options.
+	 */
+	return apply_filters( 'aiv_consent_default_options', $defaults );
 }
 
 /**

@@ -292,7 +292,14 @@ function aiv_consent_sanitize_options( $input ) {
 		add_settings_error( 'aiv_consent_options', 'aiv_consent_empty_version', __( 'Версия согласия не может быть пустой. Восстановлено значение по умолчанию.', 'aiv-consent' ) );
 	}
 
-	return $output;
+	/**
+	 * Filters sanitized settings so integrations can sanitize their own fields.
+	 *
+	 * @param array<string, mixed> $output   Sanitized options.
+	 * @param array<string, mixed> $input    Submitted options.
+	 * @param array<string, mixed> $defaults Default options.
+	 */
+	return apply_filters( 'aiv_consent_sanitized_options', $output, $input, $defaults );
 }
 
 /**

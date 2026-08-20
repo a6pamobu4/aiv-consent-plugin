@@ -60,8 +60,15 @@ function aiv_consent_validate_state( $data ) {
 		return $default;
 	}
 
-	$options = aiv_consent_get_options();
-	$version = sanitize_text_field( $version );
+	$options   = aiv_consent_get_options();
+	$version   = sanitize_text_field( $version );
+	$timestamp = (int) $timestamp;
+	$now       = time();
+	$max_age   = max( 1, (int) $options['cookie_lifetime'] ) * DAY_IN_SECONDS;
+
+	if ( $timestamp > $now + 300 || $timestamp < $now - $max_age ) {
+		return $default;
+	}
 
 	if ( ! empty( $options['reprompt_on_version_change'] ) && ! hash_equals( (string) $options['consent_version'], $version ) ) {
 		return $default;
@@ -80,7 +87,7 @@ function aiv_consent_validate_state( $data ) {
 
 	return array(
 		'version'    => $version,
-		'timestamp'  => (int) $timestamp,
+		'timestamp'  => $timestamp,
 		'categories' => $normalized,
 		'valid'      => true,
 	);
@@ -124,13 +131,16 @@ function aiv_consent_has_category( $category ) {
 /**
  * Returns the sanitized cookie cleanup registry.
  *
- * @return array<string, string[]>
+ * Legacy strings mean exact matches. Structured descriptors support exact and
+ * prefix matching: array( 'type' => 'prefix', 'value' => '_ga_' ).
+ *
+ * @return array<string, array<int, array{type: string, value: string}>>
  */
 function aiv_consent_get_category_cookies() {
 	/**
 	 * Filters first-party cookie names to delete after category revocation.
 	 *
-	 * Exact cookie names are supported in version 1.
+	 * Strings remain supported as exact cookie names for backward compatibility.
 	 *
 	 * @param array<string, string[]> $cookies Cookie registry by category.
 	 */
@@ -146,9 +156,26 @@ function aiv_consent_get_category_cookies() {
 			continue;
 		}
 
-		foreach ( $registry[ $category ] as $cookie_name ) {
-			if ( is_string( $cookie_name ) && preg_match( '/^[A-Za-z0-9_.-]+$/', $cookie_name ) ) {
-				$result[ $category ][] = $cookie_name;
+		foreach ( $registry[ $category ] as $descriptor ) {
+			if ( is_string( $descriptor ) ) {
+				$descriptor = array(
+					'type'  => 'exact',
+					'value' => $descriptor,
+				);
+			}
+
+			if ( ! is_array( $descriptor ) ) {
+				continue;
+			}
+
+			$type  = isset( $descriptor['type'] ) ? sanitize_key( $descriptor['type'] ) : 'exact';
+			$value = isset( $descriptor['value'] ) && is_string( $descriptor['value'] ) ? $descriptor['value'] : '';
+
+			if ( in_array( $type, array( 'exact', 'prefix' ), true ) && preg_match( '/^[A-Za-z0-9_.-]+$/', $value ) ) {
+				$result[ $category ][] = array(
+					'type'  => $type,
+					'value' => $value,
+				);
 			}
 		}
 	}

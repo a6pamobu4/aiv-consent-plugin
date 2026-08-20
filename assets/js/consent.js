@@ -46,6 +46,8 @@
 		var categories;
 		var version;
 		var timestamp;
+		var now;
+		var maxAge;
 
 		if ( ! raw ) {
 			return fallback;
@@ -66,6 +68,13 @@
 		categories = parsed.c || parsed.categories;
 
 		if ( typeof version !== 'string' || ! Number.isInteger( timestamp ) || timestamp <= 0 || ! categories || typeof categories !== 'object' ) {
+			return fallback;
+		}
+
+		now = Math.floor( Date.now() / 1000 );
+		maxAge = Math.max( 1, Number( config.lifetimeDays ) || 180 ) * 86400;
+
+		if ( timestamp > now + 300 || timestamp < now - maxAge ) {
 			return fallback;
 		}
 
@@ -140,7 +149,24 @@
 		var registry = config.categoryCookies || {};
 
 		revoked.forEach( function ( category ) {
-			( registry[ category ] || [] ).forEach( deleteCookie );
+			( registry[ category ] || [] ).forEach( function ( descriptor ) {
+				var type = typeof descriptor === 'string' ? 'exact' : descriptor.type;
+				var value = typeof descriptor === 'string' ? descriptor : descriptor.value;
+
+				if ( type === 'exact' && value ) {
+					deleteCookie( value );
+				}
+
+				if ( type === 'prefix' && value ) {
+					( document.cookie ? document.cookie.split( '; ' ) : [] ).forEach( function ( cookie ) {
+						var name = cookie.split( '=' )[ 0 ];
+
+						if ( name.indexOf( value ) === 0 ) {
+							deleteCookie( name );
+						}
+					} );
+				}
+			} );
 		} );
 	}
 
@@ -287,6 +313,9 @@
 			target.noModule = true;
 		}
 
+		target.async = source.hasAttribute( 'async' );
+		target.defer = source.hasAttribute( 'defer' );
+
 		if ( source.dataset.aivType ) {
 			target.type = source.dataset.aivType;
 		}
@@ -301,7 +330,6 @@
 			source.dataset.aivConsentActivated = 'true';
 
 			if ( external ) {
-				replacement.async = source.hasAttribute( 'async' );
 				replacement.src = external;
 				replacement.addEventListener( 'load', resolve, { once: true } );
 				replacement.addEventListener( 'error', resolve, { once: true } );

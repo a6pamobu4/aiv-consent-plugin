@@ -212,6 +212,22 @@
   font-weight: 700;
 }
 
+.aiv-consent-category .aiv-consent-services {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+}
+.aiv-consent-category .aiv-consent-services ul {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0;
+  margin: 0.25rem 0 0;
+  list-style: none;
+}
+.aiv-consent-category .aiv-consent-services li strong,
+.aiv-consent-category .aiv-consent-services li span {
+  display: block;
+}
+
 .aiv-consent-required {
   color: var(--aiv-consent-muted-color);
   font-size: 0.75rem;

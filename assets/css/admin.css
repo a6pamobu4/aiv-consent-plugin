@@ -20,3 +20,13 @@
 .aiv-consent-admin .aiv-consent-color-value {
   margin-left: 0.5rem;
 }
+.aiv-consent-admin .aiv-consent-custom-row {
+  max-width: 52rem;
+  padding: 1rem;
+  margin: 0 0 1rem;
+  background: #fff;
+  border: 1px solid #c3c4c7;
+}
+.aiv-consent-admin .aiv-consent-custom-row p:first-of-type {
+  margin-top: 0;
+}

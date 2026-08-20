@@ -41,7 +41,11 @@ function aiv_consent_get_script_categories() {
 }
 
 /**
- * Converts only explicitly mapped, unconsented script handles into inert markup.
+ * Converts explicitly mapped optional script handles into inert markup.
+ *
+ * This deliberately ignores the request cookie. Cached HTML is therefore
+ * identical for consented and unconsented visitors; the browser activates the
+ * script only after validating its local consent state.
  *
  * @param string $tag    Script HTML.
  * @param string $handle Registered handle.
@@ -55,7 +59,7 @@ function aiv_consent_filter_script_loader_tag( $tag, $handle, $src ) {
 
 	$mappings = aiv_consent_get_script_categories();
 
-	if ( ! isset( $mappings[ $handle ] ) || aiv_consent_has_category( $mappings[ $handle ] ) ) {
+	if ( ! isset( $mappings[ $handle ] ) ) {
 		return $tag;
 	}
 

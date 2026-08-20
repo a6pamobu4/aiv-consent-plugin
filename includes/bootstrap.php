@@ -13,6 +13,10 @@ $aiv_consent_includes = array(
 	'consent.php',
 	'settings.php',
 	'admin.php',
+	'integrations.php',
+	'integrations/yandex-metrica.php',
+	'integrations/google-analytics.php',
+	'integrations/custom-integrations.php',
 	'frontend.php',
 	'scripts.php',
 );

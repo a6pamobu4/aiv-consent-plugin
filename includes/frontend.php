@@ -162,10 +162,9 @@ function aiv_consent_render_frontend() {
 
 	$options    = aiv_consent_get_options();
 	$categories = aiv_consent_get_categories();
-	$state      = aiv_consent_get_current_state();
 	?>
 	<div class="aiv-consent-root" data-aiv-consent-root>
-		<section class="aiv-consent-banner" data-aiv-consent-banner aria-labelledby="aiv-consent-banner-title" aria-describedby="aiv-consent-banner-description"<?php echo ! empty( $state['valid'] ) ? ' hidden' : ''; ?>>
+		<section class="aiv-consent-banner" data-aiv-consent-banner aria-labelledby="aiv-consent-banner-title" aria-describedby="aiv-consent-banner-description" hidden>
 			<div class="aiv-consent-banner-inner">
 				<div class="aiv-consent-banner-content">
 					<h2 id="aiv-consent-banner-title" class="aiv-consent-title"><?php echo esc_html( $options['banner_title'] ); ?></h2>
@@ -194,6 +193,7 @@ function aiv_consent_render_frontend() {
 								<div class="aiv-consent-category-copy">
 									<h3 class="aiv-consent-category-title"><?php echo esc_html( $category['label'] ); ?></h3>
 									<p><?php echo esc_html( $category['description'] ); ?></p>
+									<?php aiv_consent_render_category_services( $key ); ?>
 								</div>
 								<?php if ( ! empty( $category['required'] ) ) : ?>
 									<span class="aiv-consent-required"><?php esc_html_e( 'Всегда включены', 'aiv-consent' ); ?></span>
